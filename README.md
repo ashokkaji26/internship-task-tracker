@@ -112,10 +112,10 @@ Internship-Task-Tracker/
 - GET    /api/users        → Get all users
 
 ## Tasks
-POST   /api/tasks        → Create task
-GET    /api/tasks/:id   → Get tasks by user
-PUT    /api/tasks/:id   → Update task
-DELETE /api/tasks/:id   → Delete task
+- POST   /api/tasks        → Create task
+- GET    /api/tasks/:id   → Get tasks by user
+- PUT    /api/tasks/:id   → Update task
+- DELETE /api/tasks/:id   → Delete task
 
 ---
 
