@@ -108,8 +108,8 @@ Internship-Task-Tracker/
 ## API Endpoints (Backend)
 
 ### Users
-POST   /api/users        → Register user
-GET    /api/users        → Get all users
+- POST   /api/users        → Register user
+- GET    /api/users        → Get all users
 
 ## Tasks
 POST   /api/tasks        → Create task
@@ -125,8 +125,9 @@ DELETE /api/tasks/:id   → Delete task
 2. Backend Setup 
     - cd server
     - npm install
-    - create .env file :- PORT=4000
-                          MONGO_URI=your_mongodb_connection_string
+    - create .env file 
+        - PORT=4000
+        - MONGO_URI=your_mongodb_connection_string
     - Run backend: npm start
 
 3. Frontend setup - cd client - Open index.html using Live Server or browser.
@@ -141,13 +142,13 @@ DELETE /api/tasks/:id   → Delete task
 ---
 
 ## Learning Outcomes
-This project helped me strengthen:
-	•	Full-stack architecture understanding
-	•	REST API design
-	•	State management without frameworks
-	•	UI/UX principles
-	•	Debugging real-world issues
-	•	Deployment workflows
+### This project helped me strengthen:
+- Full-stack architecture understanding
+- REST API design
+- State management without frameworks
+- UI/UX principles
+- Debugging real-world issues
+- Deployment workflows
 
 ---
 
@@ -156,7 +157,7 @@ This project helped me strengthen:
 - B.Tech CSE | IIIT Lucknow
 - Aspiring Software Engineer | Full-Stack Developer
 
-**GitHub**: https://github.com/ashokkaji26
-**LinkedIn**: https://www.linkedin.com/in/ashokkaji26/
+- **GitHub**: https://github.com/ashokkaji26
+- **LinkedIn**: https://www.linkedin.com/in/ashokkaji26/
 
     
