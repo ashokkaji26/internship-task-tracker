@@ -155,7 +155,8 @@ This project helped me strengthen:
 Ashok Kaji
 B.Tech CSE | IIIT Lucknow
 Aspiring Software Engineer | Full-Stack Developer
-	•	GitHub: https://github.com/ashokkaji26
-	•	LinkedIn: https://www.linkedin.com/in/ashokkaji26/
+
+**GitHub**: https://github.com/ashokkaji26
+**LinkedIn**: https://www.linkedin.com/in/ashokkaji26/
 
     
