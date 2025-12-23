@@ -152,9 +152,9 @@ This project helped me strengthen:
 ---
 
 ## Author :- 
-Ashok Kaji
-B.Tech CSE | IIIT Lucknow
-Aspiring Software Engineer | Full-Stack Developer
+- Ashok Kaji
+- B.Tech CSE | IIIT Lucknow
+- Aspiring Software Engineer | Full-Stack Developer
 
 **GitHub**: https://github.com/ashokkaji26
 **LinkedIn**: https://www.linkedin.com/in/ashokkaji26/
