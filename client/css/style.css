@@ -1,0 +1,672 @@
+/* ================= RESET ================= */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* ================= BASE ================= */
+body {
+    font-family: "Inter", system-ui, sans-serif;
+    background:
+        radial-gradient(circle at top, #eef2ff 0%, #e0e7ff 25%, #f8fafc 55%, #e5e7eb 100%),
+        linear-gradient(180deg, #f8fafc, #e5e7eb);
+    color: #1f2937;
+    min-height: 100vh;
+    transition: background 0.3s ease, color 0.3s ease;
+}
+
+/* ================= NAVBAR ================= */
+.navbar {
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    background: linear-gradient(90deg, #0f172a, #1e293b);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25);
+}
+
+.nav-container {
+    max-width: 1100px;
+    margin: auto;
+    height: 68px;
+    padding: 0 24px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.nav-left h2 {
+    color: #e0e7ff;
+    font-size: 1.4rem;
+    font-weight: 700;
+}
+
+.nav-right {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+}
+
+.nav-right a {
+    color: #c7d2fe;
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.nav-right a:hover {
+    color: white;
+}
+
+.nav-right .primary-btn {
+    margin-top: 0;
+    padding: 6px 14px;
+    font-size: 0.8rem;
+}
+
+.user-status {
+    padding: 6px 14px;
+    background: linear-gradient(90deg, #2563eb, #3b82f6);
+    color: white;
+    border-radius: 999px;
+    font-size: 0.8rem;
+    font-weight: 600;
+}
+
+/* ================= PAGE WRAPPER ================= */
+.page-wrapper {
+    max-width: 1100px;
+    margin: 40px auto;
+    padding: 0 20px;
+}
+
+/* ================= HERO ================= */
+.hero-section {
+    background: linear-gradient(135deg, #dbeafe, #eef2ff, #f8fafc);
+    border-radius: 22px;
+    padding: 52px 42px;
+    margin-bottom: 40px;
+    box-shadow: 0 22px 50px rgba(37, 99, 235, 0.18);
+}
+
+.hero-content h1 {
+    font-size: 2.4rem;
+    font-weight: 800;
+    color: #0f172a;
+}
+
+.hero-content p {
+    max-width: 720px;
+    margin-top: 14px;
+    font-size: 1.05rem;
+    color: #475569;
+    line-height: 1.7;
+}
+
+/* ================= SECTION CARDS ================= */
+.section-card {
+    border-radius: 22px;
+    padding: 30px 28px;
+    margin-bottom: 32px;
+    border: 1px solid #e5e7eb;
+    box-shadow:
+        0 22px 46px rgba(15, 23, 42, 0.08),
+        0 3px 10px rgba(15, 23, 42, 0.04);
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.section-card:hover {
+    transform: translateY(-2px);
+    box-shadow:
+        0 30px 70px rgba(15, 23, 42, 0.12),
+        0 6px 16px rgba(15, 23, 42, 0.06);
+}
+
+/* .section-card:nth-of-type(1) {
+    background: linear-gradient(180deg, #ffffff, #eef2ff);
+}
+
+.section-card:nth-of-type(2) {
+    background: linear-gradient(180deg, #ffffff, #ecfeff);
+}
+
+.section-card:nth-of-type(3) {
+    background: linear-gradient(180deg, #ffffff, #f0fdf4);
+} */
+
+.section-card h2 {
+    font-size: 1.4rem;
+    font-weight: 700;
+}
+
+.section-subtitle {
+    font-size: 0.95rem;
+    color: #64748b;
+    margin-bottom: 18px;
+}
+
+/* ================= DASHBOARD ================= */
+.dashboard {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 18px;
+}
+
+.dashboard-card {
+    padding: 22px;
+    border-radius: 18px;
+    text-align: center;
+    border: 1px solid #e5e7eb;
+    box-shadow: 0 14px 30px rgba(15, 23, 42, 0.12);
+}
+
+.dashboard-card h3 {
+    font-size: 0.85rem;
+    font-weight: 700;
+}
+
+.dashboard-card span {
+    display: block;
+    margin-top: 10px;
+    font-size: 2rem;
+    font-weight: 900;
+}
+
+.dashboard-card.total {
+    background: linear-gradient(135deg, #e0f2fe, #f0f9ff);
+    color: #0369a1;
+}
+.dashboard-card.pending {
+    background: linear-gradient(135deg, #fef3c7, #fffbeb);
+    color: #92400e;
+}
+.dashboard-card.progress {
+    background: linear-gradient(135deg, #dbeafe, #eff6ff);
+    color: #1e3a8a;
+}
+.dashboard-card.completed {
+    background: linear-gradient(135deg, #dcfce7, #f0fdf4);
+    color: #065f46;
+}
+
+/* ================= TASK FILTERS ================= */
+.task-filters {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+}
+
+.filter-btn {
+    padding: 6px 16px;
+    border-radius: 999px;
+    border: 1px solid #c7d2fe;
+    background: #f8fafc;
+    font-size: 0.75rem;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.filter-btn.active {
+    background: linear-gradient(90deg, #2563eb, #3b82f6);
+    color: white;
+    border-color: transparent;
+}
+
+/* ================= FORMS ================= */
+.form {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+.form input,
+.form textarea {
+    padding: 12px 14px;
+    border-radius: 10px;
+    border: 1px solid #d1d5db;
+    font-size: 0.95rem;
+}
+
+.form input:focus,
+.form textarea:focus {
+    outline: none;
+    border-color: #2563eb;
+}
+
+/* ================= BUTTONS ================= */
+.primary-btn,
+.edit-btn,
+.delete-btn,
+.complete-btn {
+    border: none;
+    border-radius: 10px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background 0.2s ease, transform 0.15s ease;
+}
+
+.primary-btn {
+    margin-top: 10px;
+    background: linear-gradient(90deg, #2563eb, #3b82f6);
+    color: white;
+    padding: 10px 22px;
+}
+
+.edit-btn {
+    background: #2563eb;
+    color: white;
+    padding: 7px 14px;
+}
+
+.delete-btn {
+    background: #ef4444;
+    color: white;
+    padding: 7px 14px;
+}
+
+.complete-btn {
+    background: #22c55e;
+    color: white;
+    padding: 7px 14px;
+}
+
+.primary-btn:hover,
+.edit-btn:hover,
+.delete-btn:hover,
+.complete-btn:hover {
+    transform: translateY(-1px);
+}
+
+/* ================= TASK LIST ================= */
+.task-list {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.task-item {
+    background: linear-gradient(180deg, #ffffff, #f1f5f9);
+    padding: 18px;
+    border-radius: 18px;
+    border: 1px solid #e5e7eb;
+    box-shadow: 0 12px 26px rgba(15, 23, 42, 0.08);
+}
+
+.task-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.task-status {
+    font-size: 0.7rem;
+    font-weight: 800;
+    padding: 4px 12px;
+    border-radius: 999px;
+}
+
+.task-status.pending {
+    background: #fde68a;
+    color: #92400e;
+}
+
+.task-status.completed {
+    background: #bbf7d0;
+    color: #065f46;
+}
+
+.task-desc {
+    margin-top: 10px;
+    font-size: 0.9rem;
+    color: #475569;
+}
+
+.task-actions {
+    margin-top: 14px;
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+/* ================= FOOTER ================= */
+.footer {
+    margin-top: 70px;
+    background: linear-gradient(90deg, #0f172a, #1e293b);
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.footer-content {
+    max-width: 1100px;
+    margin: auto;
+    padding: 28px 20px;
+    text-align: center;
+    font-size: 0.9rem;
+    color: #cbd5f5;
+}
+
+.footer-content p {
+    line-height: 1.6;
+}
+
+.footer-content span {
+    display: block;
+    margin-top: 8px;
+    font-size: 0.8rem;
+    color: #94a3b8;
+}
+
+/* ================= FOOTER DARK MODE ================= */
+body.dark .footer {
+    background: #020617;
+    border-top: 1px solid #1e293b;
+}
+
+body.dark .footer-content {
+    color: #e5e7eb;
+}
+
+body.dark .footer-content span {
+    color: #94a3b8;
+}
+
+/* ================= UTIL ================= */
+.hidden {
+    display: none;
+}
+
+/* ======================================================
+   DARK MODE — CLEAN & READABLE (FIXED)
+====================================================== */
+body.dark {
+    background: linear-gradient(
+        180deg,
+        #020617 0%,
+        #020617 40%,
+        #020617 100%
+    );
+    color: #e5e7eb;
+}
+
+/* ================= NAVBAR ================= */
+body.dark .navbar {
+    background: linear-gradient(90deg, #020617, #020617);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.6);
+}
+
+body.dark .nav-left h2 {
+    color: #f8fafc;
+}
+
+body.dark .nav-right a {
+    color: #cbd5f5;
+}
+
+/* ================= HERO ================= */
+body.dark .hero-section {
+    background: radial-gradient(
+        circle at top,
+        #0f172a 0%,
+        #020617 70%
+    );
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8);
+}
+
+body.dark .hero-content h1 {
+    color: #f8fafc;
+}
+
+body.dark .hero-content p {
+    color: #94a3b8;
+}
+
+/* ================= SECTION CARDS ================= */
+body.dark .section-card {
+    background: linear-gradient(
+        180deg,
+        #020617,
+        #0f172a
+    );
+    border: 1px solid #1e293b;
+    box-shadow:
+        0 16px 40px rgba(0, 0, 0, 0.7),
+        inset 0 1px 0 rgba(255, 255, 255, 0.03);
+}
+
+body.dark .section-card h2 {
+    color: #f8fafc;
+}
+
+body.dark .section-subtitle {
+    color: #94a3b8;
+}
+
+/* ================= DASHBOARD ================= */
+body.dark .dashboard-card {
+    background: linear-gradient(
+        180deg,
+        #020617,
+        #0f172a
+    );
+    border: 1px solid #1e293b;
+    box-shadow: 0 14px 40px rgba(0, 0, 0, 0.8);
+}
+
+body.dark .dashboard-card h3 {
+    color: #94a3b8;
+}
+
+body.dark .dashboard-card span {
+    color: #f8fafc;
+}
+
+/* ================= FORMS ================= */
+body.dark .form input,
+body.dark .form textarea {
+    background: #020617;
+    border: 1px solid #1e293b;
+    color: #e5e7eb;
+}
+
+body.dark .form input::placeholder,
+body.dark .form textarea::placeholder {
+    color: #64748b;
+}
+
+body.dark .form input:focus,
+body.dark .form textarea:focus {
+    border-color: #3b82f6;
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.25);
+}
+
+/* ================= TASK LIST ================= */
+body.dark .task-item {
+    background: linear-gradient(
+        180deg,
+        #020617,
+        #0f172a
+    );
+    border: 1px solid #1e293b;
+    box-shadow: 0 14px 36px rgba(0, 0, 0, 0.8);
+}
+
+body.dark .task-header h4 {
+    color: #f8fafc;
+}
+
+body.dark .task-desc {
+    color: #94a3b8;
+}
+
+/* ================= STATUS TAGS ================= */
+body.dark .task-status.pending {
+    background: #854d0e;
+    color: #fde68a;
+}
+
+body.dark .task-status.completed {
+    background: #064e3b;
+    color: #bbf7d0;
+}
+
+/* ================= TASK ACTION BUTTONS ================= */
+body.dark .edit-btn {
+    background: #2563eb;
+    color: white;
+}
+
+body.dark .delete-btn {
+    background: #dc2626;
+    color: white;
+}
+
+body.dark .complete-btn {
+    background: #16a34a;
+    color: white;
+}
+
+/* ================= FILTER BUTTONS ================= */
+body.dark .filter-btn {
+    background: #020617;
+    border: 1px solid #1e293b;
+    color: #cbd5f5;
+}
+
+body.dark .filter-btn:hover {
+    background: #0f172a;
+}
+
+body.dark .filter-btn.active {
+    background: linear-gradient(90deg, #2563eb, #3b82f6);
+    color: white;
+}
+
+/* ================= FOOTER ================= */
+body.dark .footer {
+    background: linear-gradient(180deg, #020617, #020617);
+    border-top: 1px solid #1e293b;
+}
+
+body.dark .footer-content {
+    color: #cbd5f5;
+}
+
+body.dark .footer-content span {
+    color: #64748b;
+}
+/* ======================================================
+   DARK MODE — FINAL HARD OVERRIDE (FIXED PROPERLY)
+====================================================== */
+body.dark {
+    background: #020617;
+    color: #e5e7eb;
+}
+
+/* HERO */
+body.dark .hero-section {
+    background: linear-gradient(180deg, #020617, #020617);
+    box-shadow: none;
+}
+
+body.dark .hero-content h1 {
+    color: #f8fafc;
+}
+
+body.dark .hero-content p {
+    color: #94a3b8;
+}
+
+/* SECTION CARDS — FORCE OVERRIDE */
+body.dark .section-card,
+body.dark .section-card:nth-of-type(1),
+body.dark .section-card:nth-of-type(2),
+body.dark .section-card:nth-of-type(3) {
+    background: linear-gradient(180deg, #020617, #0f172a);
+    border: 1px solid #1e293b;
+    box-shadow: 0 12px 30px rgba(0,0,0,0.7);
+}
+
+/* DASHBOARD */
+body.dark .dashboard-card {
+    background: linear-gradient(180deg, #020617, #0f172a);
+    border: 1px solid #1e293b;
+}
+
+body.dark .dashboard-card h3 {
+    color: #94a3b8;
+}
+
+body.dark .dashboard-card span {
+    color: #f8fafc;
+}
+
+/* FORMS */
+body.dark input,
+body.dark textarea {
+    background: #020617;
+    color: #e5e7eb;
+    border: 1px solid #1e293b;
+}
+
+body.dark input::placeholder,
+body.dark textarea::placeholder {
+    color: #64748b;
+}
+
+/* TASK CARDS */
+body.dark .task-item {
+    background: linear-gradient(180deg, #020617, #0f172a);
+    border: 1px solid #1e293b;
+}
+
+body.dark .task-header h4 {
+    color: #f8fafc;
+}
+
+body.dark .task-desc {
+    color: #94a3b8;
+}
+
+/* STATUS TAGS */
+body.dark .task-status.pending {
+    background: #78350f;
+    color: #fde68a;
+}
+
+body.dark .task-status.completed {
+    background: #064e3b;
+    color: #bbf7d0;
+}
+
+/* BUTTONS */
+body.dark .primary-btn {
+    background: linear-gradient(90deg, #2563eb, #3b82f6);
+}
+
+body.dark .edit-btn { background: #2563eb; }
+body.dark .delete-btn { background: #dc2626; }
+body.dark .complete-btn { background: #16a34a; }
+
+/* FILTERS */
+body.dark .filter-btn {
+    background: #020617;
+    border: 1px solid #1e293b;
+    color: #cbd5f5;
+}
+
+body.dark .filter-btn.active {
+    background: linear-gradient(90deg, #2563eb, #3b82f6);
+}
+
+/* FOOTER */
+body.dark .footer {
+    background: #020617;
+    border-top: 1px solid #1e293b;
+}
+
+body.dark .footer-content {
+    color: #cbd5f5;
+}
+
+body.dark .footer-content span {
+    color: #64748b;
+}

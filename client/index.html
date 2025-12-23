@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Internship Task Tracker</title>
+
+    <!-- Main Styles -->
+    <link rel="stylesheet" href="css/style.css" />
+</head>
+
+<body>
+
+    <!-- ================= NAVBAR ================= -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-left">
+                <h2>Internship TaskTracker</h2>
+            </div>
+
+            <div class="nav-right">
+                <a href="about.html">About</a>
+
+                <!-- 🌙 DARK MODE TOGGLE -->
+                <button id="darkToggle" class="primary-btn">🌙</button>
+
+                <span class="user-status" id="userStatus">
+                    Not Logged In
+                </span>
+
+                <button id="logoutBtn" class="primary-btn hidden">
+                    Logout
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- ================= PAGE WRAPPER ================= -->
+    <main class="page-wrapper">
+
+        <!-- ================= HERO ================= -->
+        <section class="hero-section">
+            <div class="hero-content">
+                <h1>Internship Task Tracker</h1>
+                <p>
+                    A real-world full-stack application to help students
+                    manage tasks, track progress, and stay organized
+                    during internships.
+                </p>
+            </div>
+        </section>
+
+        <!-- ================= USER ACCESS ================= -->
+        <section class="section-card">
+            <h2>User Access</h2>
+            <p class="section-subtitle">
+                New users can register. Existing users can login directly.
+            </p>
+
+            <form id="userForm" class="form">
+                <input
+                    type="text"
+                    id="username"
+                    placeholder="Full Name (required for register)"
+                />
+
+                <input
+                    type="email"
+                    id="email"
+                    placeholder="Email Address"
+                    required
+                />
+
+                <div style="display: flex; gap: 12px;">
+                    <button
+                        type="button"
+                        id="registerBtn"
+                        class="primary-btn"
+                    >
+                        Register
+                    </button>
+
+                    <button
+                        type="button"
+                        id="loginBtn"
+                        class="primary-btn"
+                        style="background:#0f172a;"
+                    >
+                        Login
+                    </button>
+                </div>
+            </form>
+        </section>
+
+        <!-- ================= DASHBOARD COUNTERS ================= -->
+        <section id="dashboardSection" class="section-card hidden">
+            <h2>Dashboard Overview</h2>
+            <p class="section-subtitle">
+                Quick summary of your task progress.
+            </p>
+
+            <div class="dashboard">
+                <div class="dashboard-card total">
+                    <h3>Total Tasks</h3>
+                    <span id="totalCount">0</span>
+                </div>
+
+                <div class="dashboard-card pending">
+                    <h3>Pending</h3>
+                    <span id="pendingCount">0</span>
+                </div>
+
+                <div class="dashboard-card progress">
+                    <h3>In Progress</h3>
+                    <span id="progressCount">0</span>
+                </div>
+
+                <div class="dashboard-card completed">
+                    <h3>Completed</h3>
+                    <span id="completedCount">0</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- ================= ADD TASK ================= -->
+        <section class="section-card hidden" id="taskSection">
+            <h2>Add New Task</h2>
+            <p class="section-subtitle">
+                Create tasks and manage your internship workload.
+            </p>
+
+            <form id="taskForm" class="form">
+                <input
+                    type="text"
+                    id="taskTitle"
+                    placeholder="Task Title"
+                    required
+                />
+
+                <textarea
+                    id="taskDescription"
+                    placeholder="Task Description"
+                ></textarea>
+
+                <button type="submit" class="primary-btn">
+                    Add Task
+                </button>
+            </form>
+        </section>
+
+        <!-- ================= TASK LIST ================= -->
+        <section class="section-card hidden" id="taskListSection">
+            <h2>Your Tasks</h2>
+            <p class="section-subtitle">
+                View, update, and manage your tasks.
+            </p>
+
+            <!-- ================= TASK FILTERS ================= -->
+            <div class="task-filters">
+                <button class="filter-btn active" data-filter="all">All</button>
+                <button class="filter-btn" data-filter="pending">Pending</button>
+                <button class="filter-btn" data-filter="in-progress">In Progress</button>
+                <button class="filter-btn" data-filter="completed">Completed</button>
+            </div>
+
+            <div id="taskList" class="task-list"></div>
+        </section>
+
+    </main>
+
+    <!-- ================= FOOTER ================= -->
+    <footer class="footer">
+        <div class="footer-content">
+            <p>
+                Internship Task Tracker — Full-Stack Project built using
+                HTML, CSS, JavaScript, Node.js, Express, and MongoDB
+            </p>
+            <span>© 2025 Ashok Kaji</span>
+        </div>
+    </footer>
+
+    <!-- Main Script -->
+    <script src="js/app.js"></script>
+
+</body>
+
+</html>
