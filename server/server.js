@@ -18,7 +18,7 @@ app.use(
     cors({
         origin: [
             "http://localhost:5500",
-            "https://internship-task-tracker.netlify.app/"
+            "https://internship-task-tracker.netlify.app"
         ],
         methods: ["GET", "POST", "PUT", "DELETE"],
         allowedHeaders: ["Content-Type"]
