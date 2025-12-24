@@ -8,8 +8,8 @@ This project demonstrates **end-to-end development**, including authentication, 
 
 ## 🔗 Live Demo & Repository
 
-- 🌐 **Frontend (Demo):** https://your-frontend-link.netlify.app  
-- ⚙️ **Backend API:** https://your-backend-link.onrender.com  
+- 🌐 **Frontend (Demo):** https://internship-task-tracker.netlify.app/
+- ⚙️ **Backend API:** https://internship-task-tracker-backend.onrender.com
 - 📦 **GitHub Repository:** https://github.com/ashokkaji26/internship-task-tracker.git 
 
 ---
