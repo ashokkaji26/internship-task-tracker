@@ -1,3 +1,4 @@
+console.log("✅ app.js loaded");
 const API_BASE_URL = "https://internship-task-tracker-backend.onrender.com";
 
 let currentUserId = null;
