@@ -357,6 +357,7 @@ body {
     display: flex;
     gap: 10px;
     flex-wrap: wrap;
+    align-items: center;
 }
 
 /* ================= FOOTER ================= */
@@ -788,4 +789,48 @@ body.dark .footer-content span {
 .task-priority.high {
     background: #fee2e2;
     color: #991b1b;
+}
+
+/* =========================================
+   NAVBAR RESPONSIVE FIX (MOBILE)
+========================================= */
+@media (max-width: 768px) {
+
+    .nav-container {
+        flex-direction: column;
+        height: auto;
+        padding: 12px 16px;
+        gap: 10px;
+    }
+
+    .nav-left h2 {
+        font-size: 1.2rem;
+        text-align: center;
+    }
+
+    .nav-right {
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 8px;
+    }
+
+    .nav-right a {
+        font-size: 0.85rem;
+    }
+
+    .nav-right .primary-btn {
+        padding: 6px 12px;
+        font-size: 0.75rem;
+    }
+
+    .user-status {
+        font-size: 0.7rem;
+        padding: 5px 10px;
+    }
+}
+
+@media (max-width: 768px) {
+    body.dark .navbar {
+        box-shadow: none;
+    }
 }

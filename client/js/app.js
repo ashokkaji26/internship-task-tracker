@@ -194,14 +194,19 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     async function fetchTasks() {
-        taskList.innerHTML = "";
-        const res = await fetch(`${API_BASE_URL}/api/tasks/${currentUserId}`);
-        const data = await res.json();
+    taskList.innerHTML = "";
 
-        allTasks = data.tasks || [];
-        updateCounters(allTasks);
-        applyFilter();
-    }
+    const res = await fetch(`${API_BASE_URL}/api/tasks/${currentUserId}`);
+    const data = await res.json();
+
+    // ✅ DEBUG: confirm tasks are coming from backend
+    console.log("🟡 fetched tasks:", data.tasks);
+
+    allTasks = Array.isArray(data.tasks) ? data.tasks : [];
+
+    updateCounters(allTasks);
+    applyFilter();
+}
 
     function applyFilter() {
         taskList.innerHTML = "";
@@ -226,39 +231,74 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     function renderTask(task) {
+        console.log("🟢 renderTask called", task);
         const taskDiv = document.createElement("div");
         taskDiv.className = "task-item";
 
-        const status = task.status;
-        const priority = task.priority;
-        const createdDate = new Date(task.createdAt).toLocaleDateString("en-IN");
+        const status = task.status || "pending";
+        const priority = task.priority || "medium";
+
+        const createdDate = new Date(task.createdAt).toLocaleDateString("en-IN", {
+            day: "2-digit",
+            month: "short",
+            year: "numeric"
+        });
+
         const dueDateObj = task.dueDate ? new Date(task.dueDate) : null;
-        const isOverdue = dueDateObj && status !== "completed" && dueDateObj < new Date();
+        const isOverdue =
+            dueDateObj && status !== "completed" && dueDateObj < new Date();
+
+        const dueDateText = dueDateObj
+            ? dueDateObj.toLocaleDateString("en-IN", {
+                day: "2-digit",
+                month: "short",
+                year: "numeric"
+            })
+            : "No due date";
 
         taskDiv.innerHTML = `
-            <div class="task-header">
-                <h4>${task.title}</h4>
-                <div class="task-badges">
-                    <span class="task-status ${status}">${status.toUpperCase()}</span>
-                    <span class="task-priority ${priority}">${priority.toUpperCase()}</span>
-                </div>
+        <div class="task-header">
+            <h4>${task.title}</h4>
+
+            <div class="task-badges">
+                <span class="task-status ${status}">
+                    ${status.toUpperCase()}
+                </span>
+
+                <span class="task-priority ${priority}">
+                    ${priority.toUpperCase()}
+                </span>
             </div>
+        </div>
 
-            <p class="task-desc">${task.description || "No description"}</p>
+        <p class="task-desc">${task.description || "No description"}</p>
 
-            <p class="task-date ${isOverdue ? "overdue" : ""}">
-                🕒 Added: ${createdDate}<br/>
-                📅 Due: ${dueDateObj ? dueDateObj.toLocaleDateString("en-IN") : "No due date"}
-                ${isOverdue ? " ⚠️ Overdue" : ""}
-            </p>
+        <p class="task-date ${isOverdue ? "overdue" : ""}">
+            🕒 Added: ${createdDate}<br/>
+            📅 Due: ${dueDateText}
+            ${isOverdue ? " ⚠️ Overdue" : ""}
+        </p>
 
-            <div class="task-actions">
-                <button class="complete-btn" onclick="updateStatus('${task._id}', '${status === "completed" ? "pending" : "completed"}')">
-                    Mark ${status === "completed" ? "Pending" : "Completed"}
-                </button>
-                <button class="delete-btn" onclick="deleteTask('${task._id}')">Delete</button>
-            </div>
-        `;
+        <div class="task-actions">
+            <button class="edit-btn"
+                onclick="editTask('${task._id}', '${task.title}', '${task.description || ""}')">
+                Edit
+            </button>
+
+            <button class="complete-btn"
+                onclick="updateStatus(
+                    '${task._id}',
+                    '${status === "completed" ? "pending" : "completed"}'
+                )">
+                Mark ${status === "completed" ? "Pending" : "Completed"}
+            </button>
+
+            <button class="delete-btn"
+                onclick="deleteTask('${task._id}')">
+                Delete
+            </button>
+        </div>
+    `;
 
         taskList.appendChild(taskDiv);
     }
