@@ -175,14 +175,17 @@ body {
     background: linear-gradient(135deg, #e0f2fe, #f0f9ff);
     color: #0369a1;
 }
+
 .dashboard-card.pending {
     background: linear-gradient(135deg, #fef3c7, #fffbeb);
     color: #92400e;
 }
+
 .dashboard-card.progress {
     background: linear-gradient(135deg, #dbeafe, #eff6ff);
     color: #1e3a8a;
 }
+
 .dashboard-card.completed {
     background: linear-gradient(135deg, #dcfce7, #f0fdf4);
     color: #065f46;
@@ -226,7 +229,23 @@ body {
     border: 1px solid #d1d5db;
     font-size: 0.95rem;
 }
+/* ================= PRIORITY PLACEHOLDER ================= */
+#taskPriority {
+    color: #64748b; /* faded placeholder look */
+    font-weight: 100;
+}
 
+/* When a real option is selected */
+#taskPriority option:not([value=""]) {
+    color: #1f2937;
+}
+/* ================= DUE DATE HINT ================= */
+.due-hint {
+    margin-top: 4px;
+    font-size: 0.75rem;
+    color: #64748b;
+    font-weight: 600;
+}
 .form input:focus,
 .form textarea:focus {
     outline: none;
@@ -298,6 +317,18 @@ body {
     align-items: center;
 }
 
+/* Task Added Date */
+.task-date {
+    margin-top: 6px;
+    font-size: 0.75rem;
+    color: #64748b;
+    font-weight: 600;
+}
+/* ================= OVERDUE TASK ================= */
+.task-date.overdue {
+    color: #dc2626;
+    font-weight: 800;
+}
 .task-status {
     font-size: 0.7rem;
     font-weight: 800;
@@ -378,12 +409,10 @@ body.dark .footer-content span {
    DARK MODE — CLEAN & READABLE (FIXED)
 ====================================================== */
 body.dark {
-    background: linear-gradient(
-        180deg,
-        #020617 0%,
-        #020617 40%,
-        #020617 100%
-    );
+    background: linear-gradient(180deg,
+            #020617 0%,
+            #020617 40%,
+            #020617 100%);
     color: #e5e7eb;
 }
 
@@ -403,11 +432,9 @@ body.dark .nav-right a {
 
 /* ================= HERO ================= */
 body.dark .hero-section {
-    background: radial-gradient(
-        circle at top,
-        #0f172a 0%,
-        #020617 70%
-    );
+    background: radial-gradient(circle at top,
+            #0f172a 0%,
+            #020617 70%);
     box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8);
 }
 
@@ -421,11 +448,9 @@ body.dark .hero-content p {
 
 /* ================= SECTION CARDS ================= */
 body.dark .section-card {
-    background: linear-gradient(
-        180deg,
-        #020617,
-        #0f172a
-    );
+    background: linear-gradient(180deg,
+            #020617,
+            #0f172a);
     border: 1px solid #1e293b;
     box-shadow:
         0 16px 40px rgba(0, 0, 0, 0.7),
@@ -442,11 +467,9 @@ body.dark .section-subtitle {
 
 /* ================= DASHBOARD ================= */
 body.dark .dashboard-card {
-    background: linear-gradient(
-        180deg,
-        #020617,
-        #0f172a
-    );
+    background: linear-gradient(180deg,
+            #020617,
+            #0f172a);
     border: 1px solid #1e293b;
     box-shadow: 0 14px 40px rgba(0, 0, 0, 0.8);
 }
@@ -480,11 +503,9 @@ body.dark .form textarea:focus {
 
 /* ================= TASK LIST ================= */
 body.dark .task-item {
-    background: linear-gradient(
-        180deg,
-        #020617,
-        #0f172a
-    );
+    background: linear-gradient(180deg,
+            #020617,
+            #0f172a);
     border: 1px solid #1e293b;
     box-shadow: 0 14px 36px rgba(0, 0, 0, 0.8);
 }
@@ -553,6 +574,7 @@ body.dark .footer-content {
 body.dark .footer-content span {
     color: #64748b;
 }
+
 /* ======================================================
    DARK MODE — FINAL HARD OVERRIDE (FIXED PROPERLY)
 ====================================================== */
@@ -561,7 +583,21 @@ body.dark {
     color: #e5e7eb;
 }
 
-/* HERO */
+/* ================= TASK DATE ================= */
+body.dark .task-date {
+    color: #94a3b8;
+}
+/* ================= DARK MODE — DUE DATE HINT ================= */
+body.dark .due-hint {
+    color: #94a3b8;
+}
+/* ================= DARK MODE — OVERDUE DATE ================= */
+body.dark .task-date.overdue {
+    color: #f87171;   /* soft red, readable on dark */
+    font-weight: 800;
+}
+
+/* ================= HERO ================= */
 body.dark .hero-section {
     background: linear-gradient(180deg, #020617, #020617);
     box-shadow: none;
@@ -575,17 +611,25 @@ body.dark .hero-content p {
     color: #94a3b8;
 }
 
-/* SECTION CARDS — FORCE OVERRIDE */
+/* ================= SECTION CARDS ================= */
 body.dark .section-card,
 body.dark .section-card:nth-of-type(1),
 body.dark .section-card:nth-of-type(2),
 body.dark .section-card:nth-of-type(3) {
     background: linear-gradient(180deg, #020617, #0f172a);
     border: 1px solid #1e293b;
-    box-shadow: 0 12px 30px rgba(0,0,0,0.7);
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.7);
 }
 
-/* DASHBOARD */
+body.dark .section-card h2 {
+    color: #f8fafc;
+}
+
+body.dark .section-subtitle {
+    color: #94a3b8;
+}
+
+/* ================= DASHBOARD ================= */
 body.dark .dashboard-card {
     background: linear-gradient(180deg, #020617, #0f172a);
     border: 1px solid #1e293b;
@@ -599,7 +643,24 @@ body.dark .dashboard-card span {
     color: #f8fafc;
 }
 
-/* FORMS */
+/* ================= FORMS ================= */
+/* ================= SELECT (PRIORITY) ================= */
+.form select {
+    padding: 12px 14px;
+    border-radius: 10px;
+    border: 1px solid #d1d5db;
+    font-size: 0.95rem;
+    background: white;
+    color: #1f2937;
+    appearance: none;
+    cursor: pointer;
+}
+
+.form select:focus {
+    outline: none;
+    border-color: #2563eb;
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
+}
 body.dark input,
 body.dark textarea {
     background: #020617;
@@ -611,8 +672,28 @@ body.dark input::placeholder,
 body.dark textarea::placeholder {
     color: #64748b;
 }
+/* ================= DARK MODE PRIORITY PLACEHOLDER ================= */
+body.dark #taskPriority {
+    background: #020617;
+    border: 1px solid #1e293b;
+    color: #64748b; /* faded placeholder */
+}
 
-/* TASK CARDS */
+/* When user selects a real value */
+body.dark #taskPriority option:not([value=""]) {
+    color: #e5e7eb;
+}
+body.dark .form select {
+    background: #020617;
+    color: #e5e7eb;
+    border: 1px solid #1e293b;
+}
+
+body.dark .form select:focus {
+    border-color: #3b82f6;
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.25);
+}
+/* ================= TASK CARDS ================= */
 body.dark .task-item {
     background: linear-gradient(180deg, #020617, #0f172a);
     border: 1px solid #1e293b;
@@ -626,7 +707,7 @@ body.dark .task-desc {
     color: #94a3b8;
 }
 
-/* STATUS TAGS */
+/* ================= STATUS TAGS ================= */
 body.dark .task-status.pending {
     background: #78350f;
     color: #fde68a;
@@ -637,27 +718,40 @@ body.dark .task-status.completed {
     color: #bbf7d0;
 }
 
-/* BUTTONS */
+/* ================= BUTTONS ================= */
 body.dark .primary-btn {
     background: linear-gradient(90deg, #2563eb, #3b82f6);
 }
 
-body.dark .edit-btn { background: #2563eb; }
-body.dark .delete-btn { background: #dc2626; }
-body.dark .complete-btn { background: #16a34a; }
+body.dark .edit-btn {
+    background: #2563eb;
+}
 
-/* FILTERS */
+body.dark .delete-btn {
+    background: #dc2626;
+}
+
+body.dark .complete-btn {
+    background: #16a34a;
+}
+
+/* ================= FILTER BUTTONS ================= */
 body.dark .filter-btn {
     background: #020617;
     border: 1px solid #1e293b;
     color: #cbd5f5;
 }
 
-body.dark .filter-btn.active {
-    background: linear-gradient(90deg, #2563eb, #3b82f6);
+body.dark .filter-btn:hover {
+    background: #0f172a;
 }
 
-/* FOOTER */
+body.dark .filter-btn.active {
+    background: linear-gradient(90deg, #2563eb, #3b82f6);
+    color: white;
+}
+
+/* ================= FOOTER ================= */
 body.dark .footer {
     background: #020617;
     border-top: 1px solid #1e293b;
@@ -669,4 +763,29 @@ body.dark .footer-content {
 
 body.dark .footer-content span {
     color: #64748b;
+}
+
+/* ================= PRIORITY BADGES ================= */
+.task-priority {
+    font-size: 0.65rem;
+    font-weight: 800;
+    padding: 4px 10px;
+    border-radius: 999px;
+    letter-spacing: 0.5px;
+}
+
+/* Priority colors (Light Mode) */
+.task-priority.low {
+    background: #dcfce7;
+    color: #166534;
+}
+
+.task-priority.medium {
+    background: #fde68a;
+    color: #92400e;
+}
+
+.task-priority.high {
+    background: #fee2e2;
+    color: #991b1b;
 }

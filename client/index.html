@@ -59,41 +59,23 @@
             </p>
 
             <form id="userForm" class="form">
-                <input
-                    type="text"
-                    id="username"
-                    placeholder="Full Name (required for register)"
-                />
+                <input type="text" id="username" placeholder="Full Name (required for register)" />
 
-                <input
-                    type="email"
-                    id="email"
-                    placeholder="Email Address"
-                    required
-                />
+                <input type="email" id="email" placeholder="Email Address" required />
 
                 <div style="display: flex; gap: 12px;">
-                    <button
-                        type="button"
-                        id="registerBtn"
-                        class="primary-btn"
-                    >
+                    <button type="button" id="registerBtn" class="primary-btn">
                         Register
                     </button>
 
-                    <button
-                        type="button"
-                        id="loginBtn"
-                        class="primary-btn"
-                        style="background:#0f172a;"
-                    >
+                    <button type="button" id="loginBtn" class="primary-btn" style="background:#0f172a;">
                         Login
                     </button>
                 </div>
             </form>
         </section>
 
-        <!-- ================= DASHBOARD COUNTERS ================= -->
+        <!-- ================= DASHBOARD ================= -->
         <section id="dashboardSection" class="section-card hidden">
             <h2>Dashboard Overview</h2>
             <p class="section-subtitle">
@@ -131,17 +113,26 @@
             </p>
 
             <form id="taskForm" class="form">
-                <input
-                    type="text"
-                    id="taskTitle"
-                    placeholder="Task Title"
-                    required
-                />
+                <input type="text" id="taskTitle" placeholder="Task Title" required />
 
-                <textarea
-                    id="taskDescription"
-                    placeholder="Task Description"
-                ></textarea>
+                <textarea id="taskDescription" placeholder="Task Description"></textarea>
+
+                <!-- ✅ PRIORITY (FIXED) -->
+                <select id="taskPriority" required>
+                    <option value="" disabled selected hidden>
+                        Assign priority
+                    </option>
+                    <option value="low">Low Priority</option>
+                    <option value="medium">Medium Priority</option>
+                    <option value="high">High Priority</option>
+                </select>
+
+                <div class="due-date-wrapper">
+                    <input type="date" id="taskDueDate" />
+                    <small class="due-hint">
+                        Optional — set a due date to track deadlines
+                    </small>
+                </div>
 
                 <button type="submit" class="primary-btn">
                     Add Task
@@ -156,7 +147,6 @@
                 View, update, and manage your tasks.
             </p>
 
-            <!-- ================= TASK FILTERS ================= -->
             <div class="task-filters">
                 <button class="filter-btn active" data-filter="all">All</button>
                 <button class="filter-btn" data-filter="pending">Pending</button>
@@ -180,9 +170,7 @@
         </div>
     </footer>
 
-    <!-- Main Script -->
     <script src="js/app.js"></script>
-
 </body>
 
 </html>

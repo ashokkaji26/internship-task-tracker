@@ -5,8 +5,17 @@ const Task = require("../models/Task");
 ========================= */
 const createTask = async (req, res) => {
     try {
-        const { title, description, userId, deadline } = req.body;
+        const {
+            title,
+            description,
+            userId,
+            priority,
+            dueDate
+        } = req.body;
 
+        /* =========================
+           VALIDATION
+        ========================= */
         if (!title || !userId) {
             return res.status(400).json({
                 success: false,
@@ -14,10 +23,21 @@ const createTask = async (req, res) => {
             });
         }
 
+        if (priority && !["low", "medium", "high"].includes(priority)) {
+            return res.status(400).json({
+                success: false,
+                message: "Invalid priority value"
+            });
+        }
+
+        /* =========================
+           CREATE TASK (FIXED)
+        ========================= */
         const task = await Task.create({
             title,
             description,
-            deadline,
+            priority: priority || "medium",   // ✅ FIX BUG-2
+            dueDate: dueDate || null,         // ✅ FIX BUG-3
             user: userId
         });
 
@@ -26,7 +46,9 @@ const createTask = async (req, res) => {
             message: "Task added successfully",
             task
         });
+
     } catch (error) {
+        console.error("Create Task Error:", error);
         return res.status(500).json({
             success: false,
             message: "Failed to create task"
@@ -48,7 +70,9 @@ const getTasksByUser = async (req, res) => {
             success: true,
             tasks
         });
+
     } catch (error) {
+        console.error("Fetch Tasks Error:", error);
         return res.status(500).json({
             success: false,
             message: "Failed to fetch tasks"
@@ -61,23 +85,42 @@ const getTasksByUser = async (req, res) => {
 ========================= */
 const updateTask = async (req, res) => {
     try {
-        const { title, description, status, deadline } = req.body;
+        const {
+            title,
+            description,
+            status,
+            priority,
+            dueDate
+        } = req.body;
 
-        // ✅ Validate status if provided
-        if (status && !["pending", "completed"].includes(status)) {
+        /* =========================
+           VALIDATIONS
+        ========================= */
+        if (status && !["pending", "in-progress", "completed"].includes(status)) {
             return res.status(400).json({
                 success: false,
                 message: "Invalid task status"
             });
         }
 
+        if (priority && !["low", "medium", "high"].includes(priority)) {
+            return res.status(400).json({
+                success: false,
+                message: "Invalid priority value"
+            });
+        }
+
+        /* =========================
+           UPDATE TASK (FIXED)
+        ========================= */
         const updatedTask = await Task.findByIdAndUpdate(
             req.params.id,
             {
-                ...(title && { title }),
-                ...(description && { description }),
-                ...(status && { status }),
-                ...(deadline && { deadline })
+                ...(title !== undefined && { title }),
+                ...(description !== undefined && { description }),
+                ...(status !== undefined && { status }),
+                ...(priority !== undefined && { priority }),   // ✅ FIX
+                ...(dueDate !== undefined && { dueDate })      // ✅ FIX
             },
             { new: true }
         );
@@ -94,7 +137,9 @@ const updateTask = async (req, res) => {
             message: "Task updated successfully",
             task: updatedTask
         });
+
     } catch (error) {
+        console.error("Update Task Error:", error);
         return res.status(500).json({
             success: false,
             message: "Failed to update task"
@@ -120,7 +165,9 @@ const deleteTask = async (req, res) => {
             success: true,
             message: "Task deleted successfully"
         });
+
     } catch (error) {
+        console.error("Delete Task Error:", error);
         return res.status(500).json({
             success: false,
             message: "Failed to delete task"

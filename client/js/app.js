@@ -19,6 +19,10 @@ const dashboardSection = document.getElementById("dashboardSection");
 const userStatus = document.getElementById("userStatus");
 const taskList = document.getElementById("taskList");
 
+/* New inputs */
+const taskPriorityInput = document.getElementById("taskPriority");
+const taskDueDateInput = document.getElementById("taskDueDate");
+
 /* Dashboard counters */
 const totalCountEl = document.getElementById("totalCount");
 const pendingCountEl = document.getElementById("pendingCount");
@@ -28,22 +32,20 @@ const progressCountEl = document.getElementById("progressCount");
 /* Filters */
 const filterBtns = document.querySelectorAll(".filter-btn");
 
-/* Dark mode toggle */
+/* Dark mode */
 const darkToggle = document.getElementById("darkToggle");
 
 /* =========================
    INITIAL LOAD
 ========================= */
 document.addEventListener("DOMContentLoaded", () => {
-    /* Persist login */
     const savedUser = localStorage.getItem("tasktracker_user");
     if (savedUser) {
         loginUser(JSON.parse(savedUser));
     }
 
-    /* Persist dark mode */
-    const darkModeEnabled = localStorage.getItem("tasktracker_dark") === "true";
-    if (darkModeEnabled) {
+    const darkEnabled = localStorage.getItem("tasktracker_dark") === "true";
+    if (darkEnabled) {
         document.body.classList.add("dark");
         if (darkToggle) darkToggle.textContent = "☀️";
     }
@@ -52,16 +54,12 @@ document.addEventListener("DOMContentLoaded", () => {
 /* =========================
    DARK MODE TOGGLE
 ========================= */
-if (darkToggle) {
-    darkToggle.addEventListener("click", () => {
-        document.body.classList.toggle("dark");
-
-        const enabled = document.body.classList.contains("dark");
-        localStorage.setItem("tasktracker_dark", enabled);
-
-        darkToggle.textContent = enabled ? "☀️" : "🌙";
-    });
-}
+darkToggle?.addEventListener("click", () => {
+    document.body.classList.toggle("dark");
+    const enabled = document.body.classList.contains("dark");
+    localStorage.setItem("tasktracker_dark", enabled);
+    darkToggle.textContent = enabled ? "☀️" : "🌙";
+});
 
 /* =========================
    REGISTER USER
@@ -71,48 +69,38 @@ registerBtn?.addEventListener("click", async () => {
     const email = document.getElementById("email").value.trim();
 
     if (!name || !email) {
-        alert("Name and email required for registration");
+        alert("Name and email required");
         return;
     }
 
-    try {
-        const res = await fetch(`${API_BASE_URL}/api/users`, {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ name, email })
-        });
+    const res = await fetch(`${API_BASE_URL}/api/users`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ name, email })
+    });
 
-        const data = await res.json();
+    const data = await res.json();
 
-        if (res.ok && data.success && data.user) {
-            loginUser(data.user);
-            alert("Registered & logged in successfully!");
-            return;
-        }
-
-        if (data.message === "User already exists") {
-            await loginExistingUser(email);
-            alert("User already exists. Logged in successfully!");
-            return;
-        }
-
-        alert(data.message || "Registration failed");
-
-    } catch (error) {
-        console.error("Registration error:", error);
-        alert("Something went wrong. Please try again.");
+    if (res.ok && data.success && data.user) {
+        loginUser(data.user);
+        alert("Registered & logged in!");
+        return;
     }
+
+    if (data.message === "User already exists") {
+        await loginExistingUser(email);
+        return;
+    }
+
+    alert("Registration failed");
 });
 
 /* =========================
-   LOGIN USER
+   LOGIN
 ========================= */
 loginBtn?.addEventListener("click", async () => {
     const email = document.getElementById("email").value.trim();
-    if (!email) {
-        alert("Email required to login");
-        return;
-    }
+    if (!email) return alert("Email required");
     await loginExistingUser(email);
 });
 
@@ -132,37 +120,30 @@ function loginUser(user) {
     localStorage.setItem("tasktracker_user", JSON.stringify(user));
 
     userStatus.textContent = `Logged In: ${user.name}`;
-    logoutBtn?.classList.remove("hidden");
+    logoutBtn.classList.remove("hidden");
 
-    dashboardSection?.classList.remove("hidden");
-    taskSection?.classList.remove("hidden");
-    taskListSection?.classList.remove("hidden");
+    dashboardSection.classList.remove("hidden");
+    taskSection.classList.remove("hidden");
+    taskListSection.classList.remove("hidden");
 
     fetchTasks();
 }
 
 async function loginExistingUser(email) {
-    try {
-        const res = await fetch(`${API_BASE_URL}/api/users`);
-        const data = await res.json();
+    const res = await fetch(`${API_BASE_URL}/api/users`);
+    const data = await res.json();
+    const user = data.users.find(u => u.email === email);
 
-        const user = data.users.find(u => u.email === email);
-        if (!user) {
-            alert("User not found. Please register first.");
-            return;
-        }
-
-        loginUser(user);
-        alert("Logged in successfully!");
-
-    } catch (error) {
-        console.error("Login error:", error);
-        alert("Login failed");
+    if (!user) {
+        alert("User not found");
+        return;
     }
+
+    loginUser(user);
 }
 
 /* =========================
-   ADD TASK
+   ADD TASK (FINAL & FIXED)
 ========================= */
 taskForm?.addEventListener("submit", async (e) => {
     e.preventDefault();
@@ -170,19 +151,77 @@ taskForm?.addEventListener("submit", async (e) => {
     const title = document.getElementById("taskTitle").value.trim();
     const description = document.getElementById("taskDescription").value.trim();
 
+    // ✅ FIX: read values safely
+    const priority = taskPriorityInput
+        ? taskPriorityInput.value
+        : "medium";
+
+    const dueDate =
+        taskDueDateInput && taskDueDateInput.value !== ""
+            ? taskDueDateInput.value
+            : null;
+
+    /* =========================
+       VALIDATIONS
+    ========================= */
     if (!title) {
-        alert("Task title required");
+        alert("Task title is required");
         return;
     }
 
-    await fetch(`${API_BASE_URL}/api/tasks`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ title, description, userId: currentUserId })
+    if (!["low", "medium", "high"].includes(priority)) {
+        alert("Invalid priority selected");
+        return;
+    }
+
+    /* =========================
+       DEBUG (OPTIONAL - REMOVE LATER)
+    ========================= */
+    console.log("Adding task:", {
+        title,
+        description,
+        priority,
+        dueDate,
+        userId: currentUserId
     });
 
-    taskForm.reset();
-    fetchTasks();
+    /* =========================
+       API CALL
+    ========================= */
+    try {
+        const res = await fetch(`${API_BASE_URL}/api/tasks`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+                title,
+                description,
+                priority,
+                dueDate,
+                userId: currentUserId
+            })
+        });
+
+        const data = await res.json();
+
+        if (!res.ok || !data.success) {
+            alert("Failed to add task");
+            return;
+        }
+
+        // ✅ Reset form properly
+        taskForm.reset();
+
+        // Optional: reset priority to medium explicitly
+        if (taskPriorityInput) {
+            taskPriorityInput.value = "medium";
+        }
+
+        fetchTasks();
+
+    } catch (error) {
+        console.error("Add task error:", error);
+        alert("Something went wrong while adding task");
+    }
 });
 
 /* =========================
@@ -194,8 +233,8 @@ async function fetchTasks() {
     const res = await fetch(`${API_BASE_URL}/api/tasks/${currentUserId}`);
     const data = await res.json();
 
-    if (!data.success || !Array.isArray(data.tasks)) {
-        taskList.innerHTML = "<p>Error loading tasks.</p>";
+    if (!data.success) {
+        taskList.innerHTML = "<p>Error loading tasks</p>";
         updateCounters([]);
         return;
     }
@@ -206,13 +245,12 @@ async function fetchTasks() {
 }
 
 /* =========================
-   FILTER LOGIC
+   FILTERS
 ========================= */
 filterBtns.forEach(btn => {
     btn.addEventListener("click", () => {
         filterBtns.forEach(b => b.classList.remove("active"));
         btn.classList.add("active");
-
         activeFilter = btn.dataset.filter;
         applyFilter();
     });
@@ -221,10 +259,10 @@ filterBtns.forEach(btn => {
 function applyFilter() {
     taskList.innerHTML = "";
 
-    let filtered = allTasks;
-    if (activeFilter !== "all") {
-        filtered = allTasks.filter(t => t.status === activeFilter);
-    }
+    const filtered =
+        activeFilter === "all"
+            ? allTasks
+            : allTasks.filter(t => t.status === activeFilter);
 
     if (filtered.length === 0) {
         taskList.innerHTML = "<p>No tasks found.</p>";
@@ -235,7 +273,7 @@ function applyFilter() {
 }
 
 /* =========================
-   DASHBOARD COUNTERS
+   DASHBOARD
 ========================= */
 function updateCounters(tasks) {
     totalCountEl.textContent = tasks.length;
@@ -245,24 +283,55 @@ function updateCounters(tasks) {
 }
 
 /* =========================
-   RENDER TASK
+   RENDER TASK (FINAL)
 ========================= */
 function renderTask(task) {
     const taskDiv = document.createElement("div");
     taskDiv.className = "task-item";
 
     const status = task.status || "pending";
-    const nextStatus = status === "completed" ? "pending" : "completed";
+    const priority = task.priority ? task.priority : "medium";
+
+    const createdDate = new Date(task.createdAt).toLocaleDateString("en-IN", {
+        day: "2-digit",
+        month: "short",
+        year: "numeric"
+    });
+
+    const dueDateObj = task.dueDate ? new Date(task.dueDate) : null;
+    const isOverdue =
+        dueDateObj && status !== "completed" && dueDateObj < new Date();
+
+    const dueDateText = dueDateObj
+        ? dueDateObj.toLocaleDateString("en-IN", {
+              day: "2-digit",
+              month: "short",
+              year: "numeric"
+          })
+        : "No due date";
 
     taskDiv.innerHTML = `
         <div class="task-header">
             <h4>${task.title}</h4>
-            <span class="task-status ${status}">
-                ${status.toUpperCase()}
-            </span>
+
+            <div class="task-badges">
+                <span class="task-status ${status}">
+                    ${status.toUpperCase()}
+                </span>
+
+                <span class="task-priority ${priority}">
+                    ${priority.toUpperCase()}
+                </span>
+            </div>
         </div>
 
         <p class="task-desc">${task.description || "No description"}</p>
+
+        <p class="task-date ${isOverdue ? "overdue" : ""}">
+            🕒 Added: ${createdDate}<br/>
+            📅 Due: ${dueDateText}
+            ${isOverdue ? " ⚠️ Overdue" : ""}
+        </p>
 
         <div class="task-actions">
             <button class="edit-btn"
@@ -271,8 +340,11 @@ function renderTask(task) {
             </button>
 
             <button class="complete-btn"
-                onclick="updateStatus('${task._id}', '${nextStatus}')">
-                Mark ${nextStatus === "completed" ? "Completed" : "Pending"}
+                onclick="updateStatus(
+                    '${task._id}',
+                    '${status === "completed" ? "pending" : "completed"}'
+                )">
+                Mark ${status === "completed" ? "Pending" : "Completed"}
             </button>
 
             <button class="delete-btn"
@@ -294,7 +366,6 @@ async function updateStatus(taskId, status) {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ status })
     });
-
     fetchTasks();
 }
 
