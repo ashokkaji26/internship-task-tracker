@@ -13,13 +13,13 @@ const app = express();
    MIDDLEWARE
 ======================= */
 
-// Enable CORS (allow frontend)
+// ✅ CORS Configuration (Netlify + Localhost)
 app.use(
     cors({
         origin: [
             "http://localhost:5500",
-            "https://internship-task-tracker.netlify.app/"
-        ], // replace with frontend URL in production
+            "https://internship-task-tracker.netlify.app"
+        ],
         methods: ["GET", "POST", "PUT", "DELETE"],
         allowedHeaders: ["Content-Type"]
     })
@@ -38,9 +38,9 @@ app.use("/api/users", userRoutes);
 // Task APIs
 app.use("/api/tasks", taskRoutes);
 
-// Health check
+// Health check route
 app.get("/", (req, res) => {
-    res.send("Internship Task Tracker Backend is running");
+    res.send("Internship Task Tracker Backend is running 🚀");
 });
 
 /* =======================
@@ -48,14 +48,17 @@ app.get("/", (req, res) => {
 ======================= */
 app.use((err, req, res, next) => {
     console.error("Server Error:", err.stack);
-    res.status(500).json({ message: "Internal Server Error" });
+    res.status(500).json({
+        success: false,
+        message: "Internal Server Error"
+    });
 });
 
 /* =======================
    DATABASE CONNECTION
 ======================= */
 
-// Connect DB before server starts
+// Connect MongoDB
 connectDB();
 
 /* =======================
@@ -65,5 +68,5 @@ connectDB();
 const PORT = process.env.PORT || 4000;
 
 app.listen(PORT, () => {
-    console.log(`Server running on port ${PORT}`);
+    console.log(`✅ Server running on port ${PORT}`);
 });
