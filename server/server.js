@@ -16,7 +16,10 @@ const app = express();
 // Enable CORS (allow frontend)
 app.use(
     cors({
-        origin: "*", // replace with frontend URL in production
+        origin: [
+            "http://localhost:5500",
+            "https://internship-task-tracker.netlify.app/"
+        ], // replace with frontend URL in production
         methods: ["GET", "POST", "PUT", "DELETE"],
         allowedHeaders: ["Content-Type"]
     })
