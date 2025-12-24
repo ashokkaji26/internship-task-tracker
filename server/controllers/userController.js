@@ -1,7 +1,7 @@
 const User = require("../models/User");
 
 /* =========================
-   CREATE USER
+   CREATE USER (REGISTER)
 ========================= */
 const createUser = async (req, res) => {
     try {
@@ -9,6 +9,9 @@ const createUser = async (req, res) => {
 
         const { name, email, role } = req.body;
 
+        /* =========================
+           VALIDATION
+        ========================= */
         if (!name || !email) {
             return res.status(400).json({
                 success: false,
@@ -16,11 +19,14 @@ const createUser = async (req, res) => {
             });
         }
 
-        const normalizedEmail = email.toLowerCase();
+        const normalizedEmail = email.toLowerCase().trim();
 
+        /* =========================
+           CHECK EXISTING USER
+        ========================= */
         const existingUser = await User.findOne({ email: normalizedEmail });
 
-        // 🔁 USER ALREADY EXISTS (used for login flow)
+        // 🔁 User already exists (used by frontend login flow)
         if (existingUser) {
             console.log("User already exists:", existingUser.email);
             return res.status(400).json({
@@ -29,6 +35,9 @@ const createUser = async (req, res) => {
             });
         }
 
+        /* =========================
+           CREATE USER
+        ========================= */
         const user = await User.create({
             name: name.trim(),
             email: normalizedEmail,
@@ -37,13 +46,19 @@ const createUser = async (req, res) => {
 
         console.log("User created successfully:", user._id);
 
+        /* =========================
+           IMPORTANT FIX ✅
+           Frontend expects `data.user`
+        ========================= */
         return res.status(201).json({
             success: true,
             message: "User registered successfully",
-            _id: user._id,
-            name: user.name,
-            email: user.email,
-            role: user.role
+            user: {
+                _id: user._id,
+                name: user.name,
+                email: user.email,
+                role: user.role
+            }
         });
 
     } catch (error) {
@@ -56,11 +71,11 @@ const createUser = async (req, res) => {
 };
 
 /* =========================
-   GET ALL USERS
+   GET ALL USERS (LOGIN HELP)
 ========================= */
 const getUsers = async (req, res) => {
     try {
-        const users = await User.find();
+        const users = await User.find().select("-__v");
 
         return res.status(200).json({
             success: true,
