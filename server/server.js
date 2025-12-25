@@ -13,15 +13,17 @@ const app = express();
    MIDDLEWARE
 ======================= */
 
-// ✅ CORS Configuration (Netlify + Localhost)
+// ✅ CORS Configuration (Local + Netlify + GitHub Pages)
 app.use(
     cors({
         origin: [
             "http://localhost:5500",
-            "https://internship-task-tracker.netlify.app"
+            "https://internship-task-tracker.netlify.app",
+            "https://ashokkaji26.github.io"
         ],
-        methods: ["GET", "POST", "PUT", "DELETE"],
-        allowedHeaders: ["Content-Type"]
+        methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+        allowedHeaders: ["Content-Type"],
+        credentials: true
     })
 );
 
@@ -58,7 +60,7 @@ app.use((err, req, res, next) => {
    DATABASE CONNECTION
 ======================= */
 
-// Connect MongoDB
+// Connect MongoDB before starting server
 connectDB();
 
 /* =======================
